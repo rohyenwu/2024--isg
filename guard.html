@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 리뷰 검색기</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f5fa;
+            margin: 0;
+        }
+        .search-container {
+            text-align: center;
+        }
+        .search-label {
+            font-size: 30px;
+            margin-bottom: 0px;
+            display: block;
+        }
+        input[type="text"]::placeholder {
+            font-size: 20px;
+        }
+        input[type="text"] {
+            padding: 30px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 30px 30px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <label for="game-name" class="search-label">게임 이름을 적어주세요</label><br><br>
+        <form action="file:///C:/Users/taejin/Desktop/html_exercise/contact.html" method="post">
+            <input type="text" id="game-name" name="value" placeholder="Value">
+            <input type="submit" value="Search"/>
+        </form>
+    </div>
+</body>
+</html>
