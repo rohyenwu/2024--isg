@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게임 평가</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .search-container {
+            margin-bottom: 100px;
+            text-align: center;
+        }
+        .search-container input[type="text"] {
+            width: 400px;
+            padding: 15px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-container input[type="submit"] {
+            padding: 15px 30px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .game-name {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+        .evaluation-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 20px;
+            max-width: 1400px;
+        }
+        .evaluation-container > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1 1 200px;
+            margin: 10px;
+        }
+        .evaluation-container textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            resize: none;
+        }
+        .evaluation-container .score {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .evaluation-container .new-row {
+            flex-basis: 100%;
+            height: 0;
+        }
+        label{
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <form action="file:///C:/Users/taejin/Desktop/html_exercise/contact.html" method="post">
+            <input type="text" name="gamename" placeholder="Value">
+            <input type="submit" value="Search">
+        </form>
+        <div class="game-name" id="gameName">게임 이름</div>
+    </div>
+    <div class="evaluation-container">
+        <div>
+            <label>그래픽</label>
+            <textarea placeholder="Value"></textarea>
+        </div>
+        <div>
+            <label>사운드</label>
+            <textarea placeholder="Value"></textarea>
+        </div>
+        <div>
+            <label>스토리</label>
+            <textarea placeholder="Value"></textarea>
+        </div>
+        <div>
+            <label>편의성</label>
+            <textarea placeholder="Value"></textarea>
+        </div>
+        <div>
+            <label>창의성</label>
+            <textarea placeholder="Value"></textarea>
+        </div>
+        <div class="new-row"></div>
+        <div>
+            <label></label>
+            <textarea placeholder="Value"></textarea>
+            <div class="score">100</div>
+        </div>
+        <div>
+            <label></label>
+            <textarea placeholder="Value"></textarea>
+            <div class="score">100</div>
+        </div>
+        <div>
+            <label></label>
+            <textarea placeholder="Value"></textarea>
+            <div class="score">100</div>
+        </div>
+        <div>
+            <label></label>
+            <textarea placeholder="Value"></textarea>
+            <div class="score">100</div>
+        </div>
+        <div>
+            <label></label>
+            <textarea placeholder="Value"></textarea>
+            <div class="score">100</div>
+        </div>
+    </div>
+</body>
+</html>            
