@@ -1,0 +1,46 @@
+import fasttext
+
+# 예제 데이터
+data = """
+The game has stunning graphics and a captivating storyline. I couldn't put it down.
+Gameplay is smooth, and the controls are intuitive. A must-play for action game fans.
+The open-world environment is expansive and well-designed, making exploration enjoyable.
+The game offers a variety of missions and side quests that keep players engaged.
+Although the game is fun, it has several bugs that need to be fixed in future updates.
+The soundtrack is fantastic and complements the game’s atmosphere perfectly.
+Multiplayer mode is a bit lacking and could use more features to enhance the experience.
+I appreciate the depth of the character customization options available in the game.
+The game's pacing is well-balanced, with moments of intense action and quiet exploration.
+The storyline is predictable and lacks originality, but the gameplay makes up for it.
+Graphics are impressive, but the performance can be sluggish on older hardware.
+The voice acting is top-notch, adding depth to the characters and their interactions.
+The game’s difficulty level is well-calibrated, offering a challenge without being frustrating.
+Despite some minor flaws, the game provides a rewarding experience for fans of the genre.
+The developer has done a great job with post-launch support and content updates.
+"""
+
+# 예제 데이터 파일로 저장
+with open('example.txt', 'w') as f:
+    f.write(data)
+
+# 모델 훈련
+model = fasttext.train_unsupervised('example.txt', model='skipgram',minCount=1)
+model.save_model('reviews_model.bin')
+
+# 단어 임베딩 결과 확인
+def find_similar_words(word, top_n=10):
+    try:
+        similar_words = model.get_nearest_neighbors(word, k=top_n)
+        return similar_words
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
+# 예시 단어
+word = 'sound'  # 유사한 단어를 찾고자 하는 단어
+
+# 유사한 단어 출력
+similar_words = find_similar_words(word, top_n=10)
+print(f"Words similar to '{word}':")
+for similarity, similar_word in similar_words:
+    print(f"{similar_word}: {similarity}")
