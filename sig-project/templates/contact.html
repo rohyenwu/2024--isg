@@ -53,7 +53,7 @@
             flex: 1 1 200px;
             margin: 10px;
         }
-        .evaluation-container textarea {
+        .evaluation-container .review {
             width: 100%;
             height: 200px;
             padding: 15px;
@@ -86,8 +86,8 @@
 </head>
 <body>
     <div class="search-container">
-        <form action="contact.html" method="post">
-            <input type="text" name="gamename" placeholder="Value">
+        <form id="searchForm">
+            <input type="text" name="gamename" id="gamename" placeholder="게임 이름">
             <input type="submit" value="Search">
         </form>
         <div class="game-name" id="gameName">게임 이름</div>
@@ -95,50 +95,78 @@
     <div class="evaluation-container">
         <div>
             <label>그래픽</label>
-            <textarea placeholder="Value"></textarea>
+            <div class="review" id="graphicReview">그래픽 긍정 리뷰 내용</div>
         </div>
         <div>
             <label>사운드</label>
-            <textarea placeholder="Value"></textarea>
+            <div class="review" id="soundReview">사운드 긍정 리뷰 내용</div>
         </div>
         <div>
             <label>스토리</label>
-            <textarea placeholder="Value"></textarea>
+            <div class="review" id="storyReview">스토리 긍정 리뷰 내용</div>
         </div>
         <div>
             <label>편의성</label>
-            <textarea placeholder="Value"></textarea>
+            <div class="review" id="usabilityReview">편의성 긍정 리뷰 내용</div>
         </div>
         <div>
             <label>창의성</label>
-            <textarea placeholder="Value"></textarea>
+            <div class="review" id="creativityReview">창의성 긍정 리뷰 내용</div>
         </div>
         <div class="new-row"></div>
         <div>
             <label></label>
-            <textarea placeholder="Value"></textarea>
-            <div class="score">100</div>
+            <div class="review" id="graphicNativeReview">그래픽 부정 리뷰 내용</div>
+            <div class="score" id="graphicScore">0</div>
         </div>
         <div>
             <label></label>
-            <textarea placeholder="Value"></textarea>
-            <div class="score">100</div>
+            <div class="review" id="soundNativeReview">사운드 부정 리뷰 내용</div>
+            <div class="score" id="soundScore">0</div>
         </div>
         <div>
             <label></label>
-            <textarea placeholder="Value"></textarea>
-            <div class="score">100</div>
+            <div class="review" id="storyNativeReview">스토리 부정 리뷰 내용</div>
+            <div class="score" id="storyScore">0</div>
         </div>
         <div>
             <label></label>
-            <textarea placeholder="Value"></textarea>
-            <div class="score">100</div>
+            <div class="review" id="usabilityNativeReview">편의성 부정 리뷰 내용</div>
+            <div class="score" id="usabilityScore">0</div>
         </div>
         <div>
             <label></label>
-            <textarea placeholder="Value"></textarea>
-            <div class="score">100</div>
+            <div class="review" id="creativityNativeReview">창의성 부정 리뷰 내용</div>
+            <div class="score" id="creativityScore">0</div>
         </div>
     </div>
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const gameName = document.getElementById('gamename').value;
+            fetch(`http://localhost:8000/api/reviews?gamename=${encodeURIComponent(gameName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('gameName').innerText = gameName;
+                    document.getElementById('graphicReview').innerText = data.graphicReview;
+                    document.getElementById('soundReview').innerText = data.soundReview;
+                    document.getElementById('storyReview').innerText = data.storyReview;
+                    document.getElementById('usabilityReview').innerText = data.usabilityReview;
+                    document.getElementById('creativityReview').innerText = data.creativityReview;
+                    document.getElementById('graphicNativeReview').innerText = data.graphicNativeReview;
+                    document.getElementById('soundNativeReview').innerText = data.soundNativeReview;
+                    document.getElementById('storyNativeReview').innerText = data.storyNativeReview;
+                    document.getElementById('usabilityNativeReview').innerText = data.usabilityNativeReview;
+                    document.getElementById('creativityNativeReview').innerText = data.creativityNativeReview;
+                    document.getElementById('graphicScore').innerText = data.graphicScore;
+                    document.getElementById('soundScore').innerText = data.soundScore;
+                    document.getElementById('storyScore').innerText = data.storyScore;
+                    document.getElementById('usabilityScore').innerText = data.usabilityScore;
+                    document.getElementById('creativityScore').innerText = data.creativityScore;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+    </script>
 </body>
 </html>            
