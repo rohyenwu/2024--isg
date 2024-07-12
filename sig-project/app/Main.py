@@ -18,6 +18,6 @@ templates_dir = root_dir / "sig-project" / "templates"
 templates = Jinja2Templates(directory=str(templates_dir))
 
 # index.html을 렌더링하는 엔드포인트
-@app.get("/", response_class=HTMLResponse)
+@app.post("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
