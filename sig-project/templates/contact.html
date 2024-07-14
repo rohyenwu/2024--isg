@@ -144,28 +144,28 @@
         document.addEventListener('DOMContentLoaded', function () {
             const params = new URLSearchParams(window.location.search);
             const gameName = params.get('gamename');
-                fetch(`/?gamename=${encodeURIComponent(gameName)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('gameName').innerText = gameName;
-                        document.getElementById('graphicReview').innerText = data.graphicReview;
-                        document.getElementById('soundReview').innerText = data.soundReview;
-                        document.getElementById('storyReview').innerText = data.storyReview;
-                        document.getElementById('usabilityReview').innerText = data.usabilityReview;
-                        document.getElementById('creativityReview').innerText = data.creativityReview;
-                        document.getElementById('graphicNativeReview').innerText = data.graphicNativeReview;
-                        document.getElementById('soundNativeReview').innerText = data.soundNativeReview;
-                        document.getElementById('storyNativeReview').innerText = data.storyNativeReview;
-                        document.getElementById('usabilityNativeReview').innerText = data.usabilityNativeReview;
-                        document.getElementById('creativityNativeReview').innerText = data.creativityNativeReview;
-                        document.getElementById('graphicScore').innerText = data.graphicScore;
-                        document.getElementById('soundScore').innerText = data.soundScore;
-                        document.getElementById('storyScore').innerText = data.storyScore;
-                        document.getElementById('usabilityScore').innerText = data.usabilityScore;
-                        document.getElementById('creativityScore').innerText = data.creativityScore;
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            });
+            document.getElementById('gameName').innerText = gameName;
+            fetch(`/?gamename=${encodeURIComponent(gameName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('graphicReview').innerText = data.graphicReview;
+                    document.getElementById('soundReview').innerText = data.soundReview;
+                    document.getElementById('storyReview').innerText = data.storyReview;
+                    document.getElementById('usabilityReview').innerText = data.usabilityReview;
+                    document.getElementById('creativityReview').innerText = data.creativityReview;
+                    document.getElementById('graphicNativeReview').innerText = data.graphicNativeReview;
+                    document.getElementById('soundNativeReview').innerText = data.soundNativeReview;
+                    document.getElementById('storyNativeReview').innerText = data.storyNativeReview;
+                    document.getElementById('usabilityNativeReview').innerText = data.usabilityNativeReview;
+                    document.getElementById('creativityNativeReview').innerText = data.creativityNativeReview;
+                    document.getElementById('graphicScore').innerText = data.graphicScore;
+                    document.getElementById('soundScore').innerText = data.soundScore;
+                    document.getElementById('storyScore').innerText = data.storyScore;
+                    document.getElementById('usabilityScore').innerText = data.usabilityScore;
+                    document.getElementById('creativityScore').innerText = data.creativityScore;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
 
     </script>
 </body>
