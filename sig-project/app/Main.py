@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from database import get_db_connection, get_summary_reviews
 from pathlib import Path
 
 app = FastAPI()
@@ -18,6 +19,13 @@ templates_dir = root_dir / "sig-project" / "templates"
 templates = Jinja2Templates(directory=str(templates_dir))
 
 # index.html을 렌더링하는 엔드포인트
-@app.post("/", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
+@app.post("/review", response_class=HTMLResponse)
+async def get_review(request: Request, gamename: str):
+        get_db_connection()
+        reviews=get_summary_reviews(gamename)
+        print(reviews)
+
