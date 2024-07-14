@@ -52,23 +52,23 @@
     </div>
     
     <script>
-        function searchGame() {
-            const gameName = document.getElementById('game-name').value;
-            fetch('http://localhost:8000/', {
-                method: 'POST',
+        function searchGame() { //게임 찾기 함수
+            const gameName = document.getElementById('game-name').value; //게임 이름 = 내가 입력한 "game-name"
+            fetch('http://localhost:8000/', { //서버와 연결 ''안에는 fastapi의 엔드포인트 주소
+                method: 'POST', //방법 = POST 보내는 요청
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', //보내는 형식 = json
                 },
-                body: JSON.stringify({ gamename: gameName })
+                body: JSON.stringify({ gamename: gameName }) //내용 = gameName
             })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = `contact.html?gamename=${encodeURIComponent(gameName)}`;
-                } else {
-                    console.error('Failed to submit game name');
+            .then(response => { 
+                if (response.ok) { //fetch에 성공하면
+                    window.location.href = `contact.html?gamename=${encodeURIComponent(gameName)}`; //contact.html주소로 가기
+                } else { //fetch 실패하면
+                    console.error('Failed to submit game name'); //error 메세지 console로 출력하기
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error)); //error 발생시
         }
     </script>
 </body>
