@@ -3,12 +3,10 @@ import fasttext
 from collections import defaultdict
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 from database import store_keywords,get_db_connection,get_category_id,fetch_reviews,find_similar
+global tokenizer, pegasus_model
 
 mydb=get_db_connection
 cursor=mydb.cursor()
-
-
-
 
 # FastText 모델 훈련시키기
 def train_fasttext_model(file_path='reviews.txt'):

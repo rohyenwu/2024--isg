@@ -4,7 +4,6 @@ from collections import defaultdict
 
 model = train_fasttext_model()
 # Pegasus 모델 로드
-global tokenizer, pegasus_model
 tokenizer, pegasus_model = load_pegasus_model()
 mydb=get_db_connection
 cursor=mydb.cursor()
