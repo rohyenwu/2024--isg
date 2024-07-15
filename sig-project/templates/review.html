@@ -147,16 +147,16 @@
                 .then(response => response.json()) //response를 받아서 javascript 형태로 파싱
                 .then(data => {
                     document.getElementById('gameName').innerText = gameName; //gameName을 review.html의 gameName에 저장
-                    document.getElementById('graphicReview').innerText = data.graphicReview; //여기서부터 밑은 data에서 받아서 저장
-                    document.getElementById('soundReview').innerText = data.soundReview;
-                    document.getElementById('storyReview').innerText = data.storyReview;
-                    document.getElementById('usabilityReview').innerText = data.usabilityReview;
-                    document.getElementById('creativityReview').innerText = data.creativityReview;
-                    document.getElementById('graphicNativeReview').innerText = data.graphicNativeReview;
-                    document.getElementById('soundNativeReview').innerText = data.soundNativeReview;
-                    document.getElementById('storyNativeReview').innerText = data.storyNativeReview;
-                    document.getElementById('usabilityNativeReview').innerText = data.usabilityNativeReview;
-                    document.getElementById('creativityNativeReview').innerText = data.creativityNativeReview;
+                    document.getElementById('graphicReview').innerText = data.graphic; //여기서부터 밑은 data에서 받아서 저장
+                    document.getElementById('soundReview').innerText = data.sound;
+                    document.getElementById('storyReview').innerText = data.story;
+                    document.getElementById('usabilityReview').innerText = data.usability;
+                    document.getElementById('creativityReview').innerText = data.creativity;
+                    document.getElementById('graphicNativeReview').innerText = data.graphicNative;
+                    document.getElementById('soundNativeReview').innerText = data.soundNative;
+                    document.getElementById('storyNativeReview').innerText = data.storyNative;
+                    document.getElementById('usabilityNativeReview').innerText = data.usabilityNative;
+                    document.getElementById('creativityNativeReview').innerText = data.creativityNative;
                     document.getElementById('graphicScore').innerText = data.graphicScore;
                     document.getElementById('soundScore').innerText = data.soundScore;
                     document.getElementById('storyScore').innerText = data.storyScore;
@@ -164,8 +164,6 @@
                     document.getElementById('creativityScore').innerText = data.creativityScore;
                 })
                 .catch(error => {
-                    document.getElementById('gameName').innerText = "해당되는 게임을 찾을 수 없습니다."; //게임 이름이 없다면 gameName에 찾을 수 없다고 저장
-                    console.error('Error fetching data:', error);
                     alert("오류가 발생하였습니다. 다시 검색 해주세요.") //오류창 출력
                 })
         });
