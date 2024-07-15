@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
 import time
 import pandas as pd
+import mysql.connector
 
 def setup_driver(): # Chrome Options 설정
     options = Options()
@@ -136,6 +137,43 @@ def main(): # 실행
 
     print("CSV 파일 저장 완료")
     print(game_review_data)
+
+    # 데이터베이스 연결
+    conn = mysql.connector.connect(
+    host="localhost",
+    user="yourusername",
+    password="yourpassword",
+    database="yourdatabase"
+    )
+
+    cursor = conn.cursor()
+
+    # 데이터베이스에 데이터 삽입
+    # 1. 게임 이름을 먼저 삽입
+    for game in game_review_data:
+        game_name = game['game_name']
+    
+        cursor.execute("INSERT INTO game (game_name) VALUES (%s)", (game_name,))
+        game_id = cursor.lastrowid  # 방금 삽입된 game_id를 가져옵니다
+    
+    # 2. 게임의 리뷰를 삽입
+    for review in game['reviews']:
+        user_name = review['user_name']
+        review_text = review['review_text']
+        
+        cursor.execute(
+            "INSERT INTO game_reviews (game_id, review) VALUES (%s, %s)",
+            (game_id, review_text)
+        )
+
+
+    
+    # 변경 사항 저장 및 연결 종료
+    conn.commit()
+    conn.close()
+
+    print('리뷰 데이터베이스에 성공적으로 삽입되었습니다.')
+
 
 if __name__ == "__main__":
     main()
