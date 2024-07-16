@@ -134,7 +134,7 @@
         document.addEventListener('DOMContentLoaded', function () { //HTML코드가 전부 실행되고 나서 실행
             const params = new URLSearchParams(window.location.search); //url의 ? 뒤의 내용 저장
             const gameName = params.get('gamename'); //?뒤에 gamename=~~ 이렇게 저장 되어 있을 텐데 ~~ 를 gameName에 저장
-            fetch(`/review?gamename=${encodeURIComponent(gameName)}`) //서버와 fetch
+            fetch(`http://localhost8000/review?gamename=${encodeURIComponent(gameName)}`) //서버와 fetch
                 .then(response => response.json()) //response를 받아서 javascript 형태로 파싱
                 .then(data => {
                     document.getElementById('gameName').innerText = gameName; //gameName을 review.html의 gameName에 저장
