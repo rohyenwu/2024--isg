@@ -55,20 +55,22 @@
         function searchGame() {
             const gameName = document.getElementById('game-name').value;
             fetch('http://localhost:8000/', {
-                method: 'GET',
+   
+
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', //보내는 형식 = json
                 },
-                params: JSON.stringify({ gamename: gameName })
+
+                body: JSON.stringify({ gamename: gameName }) //내용 = gameName
             })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = `contact.html?gamename=${encodeURIComponent(gameName)}`;
-                } else {
-                    console.error('Failed to submit game name');
+            .then(response => { 
+                if (response.ok) { //fetch에 성공하면
+                    window.location.href = `contact.html?gamename=${encodeURIComponent(gameName)}`; //contact.html주소로 가기
+                } else { //fetch 실패하면
+                    console.error('Failed to submit game name'); //error 메세지 console로 출력하기
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error)); //error 발생시
         }
     </script>
 </body>

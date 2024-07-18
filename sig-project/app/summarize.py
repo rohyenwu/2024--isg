@@ -2,9 +2,7 @@ import mysql.connector
 import fasttext
 from collections import defaultdict
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
-
-global tokenizer, pegasus_model
-
+from database import store_keywords, get_db_connection, get_category_id, fetch_reviews, find_similar
 
 
 
@@ -32,6 +30,8 @@ def load_pegasus_model(model_name='google/pegasus-xsum'):
 # 리뷰 요약하기
 #ex) 추출한 키워드들 그거 가지고 이제 문장을 뽑아서 그 문장들을 다 합쳐서 요약한다. 
 def summarize_reviews(reviews):
+    global tokenizer, pegasus_model
+
     if not isinstance(reviews, list):
         raise TypeError("Expected 'reviews' to be a list of strings.")
     

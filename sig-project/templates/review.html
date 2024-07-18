@@ -13,7 +13,7 @@
             padding: 20px;
         }
         .search-container {
-            margin-bottom: 100px;
+            margin-bottom: 50px;
             text-align: center;
         }
         .search-container input[type="text"] {
@@ -36,7 +36,6 @@
             font-size: 36px;
             font-weight: bold;
             margin-top: 50px;
-            margin-bottom: 20px;
         }
         .evaluation-container {
             display: flex;
@@ -59,7 +58,7 @@
             padding: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-size: 16px;
             resize: none;
         }
@@ -106,10 +105,6 @@
             <div class="review" id="storyReview">스토리 긍정 리뷰 내용</div>
         </div>
         <div>
-            <label>편의성</label>
-            <div class="review" id="usabilityReview">편의성 긍정 리뷰 내용</div>
-        </div>
-        <div>
             <label>창의성</label>
             <div class="review" id="creativityReview">창의성 긍정 리뷰 내용</div>
         </div>
@@ -131,40 +126,34 @@
         </div>
         <div>
             <label></label>
-            <div class="review" id="usabilityNativeReview">편의성 부정 리뷰 내용</div>
-            <div class="score" id="usabilityScore">0</div>
-        </div>
-        <div>
-            <label></label>
             <div class="review" id="creativityNativeReview">창의성 부정 리뷰 내용</div>
             <div class="score" id="creativityScore">0</div>
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const params = new URLSearchParams(window.location.search);
-            const gameName = params.get('gamename');
-            document.getElementById('gameName').innerText = gameName;
-            fetch(`/?gamename=${encodeURIComponent(gameName)}`)
-                .then(response => response.json())
+        document.addEventListener('DOMContentLoaded', function () { //HTML코드가 전부 실행되고 나서 실행
+            const params = new URLSearchParams(window.location.search); //url의 ? 뒤의 내용 저장
+            const gameName = params.get('gamename'); //?뒤에 gamename=~~ 이렇게 저장 되어 있을 텐데 ~~ 를 gameName에 저장
+            fetch(`http://localhost8000/review?gamename=${encodeURIComponent(gameName)}`) //서버와 fetch
+                .then(response => response.json()) //response를 받아서 javascript 형태로 파싱
                 .then(data => {
-                    document.getElementById('graphicReview').innerText = data.graphicReview;
-                    document.getElementById('soundReview').innerText = data.soundReview;
-                    document.getElementById('storyReview').innerText = data.storyReview;
-                    document.getElementById('usabilityReview').innerText = data.usabilityReview;
-                    document.getElementById('creativityReview').innerText = data.creativityReview;
-                    document.getElementById('graphicNativeReview').innerText = data.graphicNativeReview;
-                    document.getElementById('soundNativeReview').innerText = data.soundNativeReview;
-                    document.getElementById('storyNativeReview').innerText = data.storyNativeReview;
-                    document.getElementById('usabilityNativeReview').innerText = data.usabilityNativeReview;
-                    document.getElementById('creativityNativeReview').innerText = data.creativityNativeReview;
+                    document.getElementById('gameName').innerText = gameName; //gameName을 review.html의 gameName에 저장
+                    document.getElementById('graphicReview').innerText = data.graphic; //여기서부터 밑은 data에서 받아서 저장
+                    document.getElementById('soundReview').innerText = data.sound;
+                    document.getElementById('storyReview').innerText = data.story;
+                    document.getElementById('creativityReview').innerText = data.creativity;
+                    document.getElementById('graphicNativeReview').innerText = data.graphicNative;
+                    document.getElementById('soundNativeReview').innerText = data.soundNative;
+                    document.getElementById('storyNativeReview').innerText = data.storyNative;
+                    document.getElementById('creativityNativeReview').innerText = data.creativityNative;
                     document.getElementById('graphicScore').innerText = data.graphicScore;
                     document.getElementById('soundScore').innerText = data.soundScore;
                     document.getElementById('storyScore').innerText = data.storyScore;
-                    document.getElementById('usabilityScore').innerText = data.usabilityScore;
                     document.getElementById('creativityScore').innerText = data.creativityScore;
                 })
-                .catch(error => console.error('Error fetching data:', error));
+                .catch(error => {
+                    //alert("오류가 발생하였습니다. 다시 검색 해주세요.") //오류창 출력
+                })
         });
     </script>
 </body>
