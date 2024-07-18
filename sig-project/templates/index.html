@@ -55,11 +55,11 @@
         function searchGame() {
             const gameName = document.getElementById('game-name').value;
             fetch('http://localhost:8000/', {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ gamename: gameName })
+                params: JSON.stringify({ gamename: gameName })
             })
             .then(response => {
                 if (response.ok) {
