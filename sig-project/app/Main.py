@@ -38,7 +38,7 @@ async def root_read():
 
 @app.get("/game")
 async def move_contact(request: Request):
-    return RedirectResponse(url="")
+    return templates.TemplateResponse
 
 @app.get("/review", response_class=JSONResponse)
 async def get_review(request: Request, gamename: str):
