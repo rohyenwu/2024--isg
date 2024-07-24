@@ -1,0 +1,8 @@
+{
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/sig-project/app",
+        "${workspaceFolder}/sig-project/csvRead"
+    ],
+    "python.pythonPath": "path_to_your_python_interpreter",
+    "python.envFile": "${workspaceFolder}/sig-project/.env"
+}

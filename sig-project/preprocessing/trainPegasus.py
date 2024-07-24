@@ -1,8 +1,9 @@
-
 from sklearn.model_selection import train_test_split
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer, Trainer, TrainingArguments
 import torch
 from transformers import DataCollatorForSeq2Seq
+import pandas as pd
+
 
 
 # MPS 장치 사용 설정
