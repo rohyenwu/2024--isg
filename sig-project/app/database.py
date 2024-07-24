@@ -23,7 +23,6 @@ def get_summary_reviews(game_name):
         game_id_query = "SELECT game_id FROM game WHERE game_name = %s"
         cursor.execute(game_id_query, (game_name,))
         game = cursor.fetchone()
-        
         if not game:
         
             return None

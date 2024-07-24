@@ -64,10 +64,6 @@ def clean_data(df):
     df = df.fillna('')  # NaN을 빈 문자열로 대체
     return df
 
-# 데이터프레임 읽기
-#negative_df = read_csv_with_header_skip(negative_csv_path, skip_header=False)
-#positive_df = read_csv_with_header_skip(positive_csv_path, skip_header=True)
-
 def fetch_reviews(cursor):
     cursor.execute("SELECT game_id, review FROM game_reviews")
     return cursor.fetchall()
@@ -84,4 +80,4 @@ def store_keywords(cursor, keyWords):
 
 # # 요약된 리뷰를 데이터베이스에 저장하는 함수
 # def store_summaries(cursor, pGraphic, pSound, pStory, pCreativity, nGraphic, nSound, nStory, nCreativity):
-  
+    
