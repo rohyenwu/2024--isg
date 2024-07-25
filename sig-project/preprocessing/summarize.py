@@ -7,8 +7,16 @@ def load_FestText():
     loaded_model = fasttext.load_model("fasttext_review_model.bin")
     return loaded_model
 
-# def load_Pegasus():
-
+#모델이랑 토크나이저 같이 반환한다.
+def load_Pegasus():
+    #모델 로드할 때 mps장치로 올리기
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+    print(f"Using device: {device}")
+    model_save_path = "/Users/iusong/2024--isg-1/trained_pegasus_model"
+    #모델이랑 토크나이저 로드
+    model = PegasusForConditionalGeneration.from_pretrained(model_save_path).to(device)
+    tokenizer = PegasusTokenizer.from_pretrained(model_save_path)
+    return model, tokenizer
 
 
 # #각 카테고리별로 키워드 찾는 함수
