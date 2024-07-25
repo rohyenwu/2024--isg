@@ -15,7 +15,7 @@ def get_db_connection():
 
 # 리뷰 데이터 삽입 함수
 def insert_reviews(df, polarity):
-    conn=get_db_connection
+    conn=get_db_connection()
     cursor=conn.cursor()
     if df is not None:
         df = clean_data(df)  # NaN 값 처리
@@ -38,7 +38,7 @@ def insert_reviews(df, polarity):
     conn.close()
 # 데이터베이스에서 카테고리 ID를 가져오는 함수
 def get_category_id(category_type):
-    conn=get_db_connection
+    conn=get_db_connection()
     cursor=conn.cursor(dictionary=True)
     cursor.execute("SELECT category_id FROM category WHERE category_type = %s", (category_type,))
     result = cursor.fetchone()
@@ -49,7 +49,7 @@ def get_category_id(category_type):
         return None
 # 게임을 데이터베이스에 삽입하고 게임 ID를 반환하는 함수
 def get_or_insert_game(game_name):
-    conn=get_db_connection
+    conn=get_db_connection()
     cursor=conn.cursor()
     cursor.execute("SELECT game_id FROM game WHERE game_name = %s", (game_name,))
     result = cursor.fetchone()
@@ -64,12 +64,16 @@ def clean_data(df):
     df = df.fillna('')  # NaN을 빈 문자열로 대체
     return df
 
-def fetch_reviews(cursor):
+def fetch_reviews():
+    conn=get_db_connection()
+    cursor=conn.cursor()
     cursor.execute("SELECT game_id, review FROM game_reviews")
     return cursor.fetchall()
 
 # 키워드를 데이터베이스에 저장하는 함수
-def store_keywords(cursor, keyWords):
+def store_keywords(keyWords):
+    conn=get_db_connection()
+    cursor=conn.cursor()
     for category, similar_word in keyWords:
         category_id = get_category_id(cursor, category)
         if category_id is not None:
