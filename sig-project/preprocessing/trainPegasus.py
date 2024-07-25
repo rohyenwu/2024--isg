@@ -9,7 +9,7 @@ import pickle
 device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 print(f"Using device: {device}")
 # 전처리된 데이터 로드
-preprocessed_data_path = "your csv path"
+preprocessed_data_path = "/Users/iusong/2024--isg-1/preprocessed_data.pkl"
 with open(preprocessed_data_path, 'rb') as f:
     preprocessed_data = pickle.load(f)
 
