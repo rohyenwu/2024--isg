@@ -83,5 +83,45 @@ def store_keywords(keyWords):
             )
 
 # # 요약된 리뷰를 데이터베이스에 저장하는 함수
-# def store_summaries(cursor, pGraphic, pSound, pStory, pCreativity, nGraphic, nSound, nStory, nCreativity):
+def store_summaries(cursor, gameID, pGraphic, pSound, pStory, pCreativity, nGraphic, nSound, nStory, nCreativity):
+    # 긍정적인 리뷰를 삽입
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (pGraphic, gameID, 1, 'Positive')
+    )
     
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (pSound, gameID, 2, 'Positive')
+    )
+    
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (pStory, gameID, 3, 'Positive')
+    )
+    
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (pCreativity, gameID, 4, 'Positive')
+    )
+    
+    # 부정적인 리뷰를 삽입
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (nGraphic, gameID, 1, 'Negative')
+    )
+    
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (nSound, gameID, 2, 'Negative')
+    )
+    
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (nStory, gameID, 3, 'Negative')
+    )
+    
+    cursor.execute(
+        "INSERT INTO summary_review (summary_review, game_id, category_id, Polarity) VALUES (%s, %s, %s, %s)",
+        (nCreativity, gameID, 4, 'Negative')
+    )
