@@ -1,24 +1,27 @@
 import mysql.connector
 import fasttext
 import re
+import nltk
 from collections import defaultdict
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.stem import WordNetLemmatizer
 
 
 def load_FestText():
     loaded_model = fasttext.load_model("fasttext_review_model.bin")
     return loaded_model
 
-def load_Pegasus():
-
-
 # 유사한 단어 찾기(이미 있는 키워드가 포함된 단어 빼고 찾기)
 def find_similar_keywords(model, text, top_n, extracted_keywords):
 
+    nltk.download('wordnet')
+    lemmatizer = WordNetLemmatizer
+
     text = text.lower()
     text = re.sub(r'[^\w\s]', '', text)
-    words = word_tokenize(text)
+    lemma = lemmatizer.lemmatize(text, pos='n')
+    words = word_tokenize(lemma)
     similar_words = []
 
     for word in words:
@@ -50,11 +53,23 @@ def  extract_similar_keywords_by_category(reviews, model, top_n):
 
     return keywords_by_category
 
-
 #여기서 키워드가 포함된 문장 추출하고 키워드별 코퍼스 반환(review에서)
 #sound, graphic, creative, story
-def find_sentence(word):
+def find_sentence(text, word):
+    nltk.download('punkt')
+    word = word.lower()
+    result_sentence = []
+
+    # 문장을 마침표, 느낌표 같은 문장 구분기호를 기준으로 나눔
+    sentences = sent_tokenize(text)
+    
+    for sentence in sentences:
+        # 문장에 word가 있으면 result_sentence에 넣기
+        if word in sentence.lower():
+            result_sentence.append(sentence)
+    
+    result = ' '.join(result_sentence)
+    return result
 
 #키워드가 포함된 코퍼스들을 훈련된 모델로 요약하는 함수
-def summrize_by_Pegasus(keywords):
-
+#def summrize_by_Pegasus(keywords):     
