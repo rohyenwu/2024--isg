@@ -18,10 +18,36 @@ def load_Pegasus():
     tokenizer = PegasusTokenizer.from_pretrained(model_save_path)
     return model, tokenizer
 
+# FastText 모델을 사용하여 유사한 단어를 찾는 함수
+def find_similar_keywords(model, keyword, top_n):
+    similar_words = []
+    extracted_words = [keyword] 
 
-# #각 카테고리별로 키워드 찾는 함수
-# #여기서 카테고리별로 키워드를 찾는데 ex)sound찾으면 sound포함된 단어빼고, 다음으로 유사도 높은단어 이런식으로 10개
-# def find_Key_words(model, word, top_n=10):
+    # 유사 단어 추출
+    similar = model.get_nearest_neighbors(keyword)
+    for sim_word, _ in similar:
+        if not contains_substring(extracted_words, sim_word):
+            similar_words.append(sim_word)
+            extracted_words.append(sim_word)
+            if len(similar_words) >= top_n:
+                break
+
+    return similar_words
+
+# 카테고리별로 유사한 키워드를 추출하는 함수
+def extract_similar_keywords_by_category(model, top_n):
+    categories = ['graphic', 'sound', 'story', 'convenience', 'creativity']
+    similar_keywords_by_category = {}
+
+    for category in categories:
+        similar_words = find_similar_keywords(model, category, top_n)
+        similar_keywords_by_category[category] = similar_words
+
+    return similar_keywords_by_category
+
+# 특정 문자열이 다른 문자열의 부분 문자열인지 확인하는 함수
+def contains_substring(keywords, candidate):
+    return any(keyword in candidate for keyword in keywords)
 
 
 # #여기서 키워드가 포함된 문장 추출하고 키워드별 코퍼스 반환(review에서)
