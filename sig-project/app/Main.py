@@ -27,10 +27,12 @@ app.add_middleware(
     allow_methods=["*"],  # 허용할 HTTP 메서드 (GET, POST 등)
     allow_headers=["*"],  # 허용할 HTTP 헤더
 )
+
+
+    
 @app.get("/review", response_class=JSONResponse)
 async def get_review(gamename: str = Query(..., alias="gamename")):
     print(f"Received game name: {gamename}")  # 콘솔에 게임 이름 출력 
-    get_db_connection()
     reviews=get_summary_reviews(gamename)
     if not reviews:
         return JSONResponse(content={"error": f"게임 '{gamename}'에 대한 리뷰 정보를 찾을 수 없습니다."}, status_code=404)

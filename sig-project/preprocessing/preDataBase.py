@@ -70,8 +70,20 @@ def fetch_reviews():
     cursor.execute("SELECT game_id, review FROM game_reviews")
     return cursor.fetchall()
 
+def fetch_Negative_reviews():
+    conn=get_db_connection()
+    cursor=conn.cursor()
+    cursor.execute("SELECT game_id, review FROM game_reviews WHERE review_Polarity = 'positive' ")
+    return cursor.fetchall()
+
+def fetch_Positive_reviews():
+    conn=get_db_connection()
+    cursor=conn.cursor()
+    cursor.execute("SELECT game_id, review FROM game_reviews WHERE review_Polarity = 'negative' ")
+    return cursor.fetchall()
+
 #키워드 추출 데이터베이스에 넣을 수 있는 형식으로 바꾸기
-def convert_keywords(data):
+def convert_keywordstype(data):
     keyWords = []
     for category, words in data.items():
         for word in words:
