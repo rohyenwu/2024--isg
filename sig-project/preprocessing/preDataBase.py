@@ -70,6 +70,14 @@ def fetch_reviews():
     cursor.execute("SELECT game_id, review FROM game_reviews")
     return cursor.fetchall()
 
+#키워드 추출 데이터베이스에 넣을 수 있는 형식으로 바꾸기
+def convert_keywords(data):
+    keyWords = []
+    for category, words in data.items():
+        for word in words:
+            keyWords.append((category, word))
+    return keyWords
+
 # 키워드를 데이터베이스에 저장하는 함수
 def store_keywords(keyWords):
     conn=get_db_connection()
