@@ -52,7 +52,21 @@ def contains_substring(keywords, candidate):
 
 # #여기서 키워드가 포함된 문장 추출하고 키워드별 코퍼스 반환(review에서)
 # #sound, graphic, creative, story
-# def find_sentence(word):
+def find_sentence(text, word):
+    nltk.download('punkt')
+    word = word.lower()
+    result_sentence = []
+
+    # 문장을 마침표, 느낌표 같은 문장 구분기호를 기준으로 나눔
+    sentences = sent_tokenize(text)
+    
+    for sentence in sentences:
+        # 문장에 word가 있으면 result_sentence에 넣기
+        if word in sentence.lower():
+            result_sentence.append(sentence)
+    
+    result = ' '.join(result_sentence)
+    return result
 
 # #키워드가 포함된 코퍼스들을 훈련된 모델로 요약하는 함수
 # def summrize_by_Pegasus(keywords):
