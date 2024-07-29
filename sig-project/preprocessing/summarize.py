@@ -36,7 +36,7 @@ def find_similar_keywords(model, keyword, top_n):
 
 # 카테고리별로 유사한 키워드를 추출하는 함수
 def extract_similar_keywords_by_category(model, top_n):
-    categories = ['graphic', 'sound', 'story', 'convenience', 'creativity']
+    categories = ['graphic', 'sound', 'story','creativity']
     similar_keywords_by_category = {}
 
     for category in categories:
