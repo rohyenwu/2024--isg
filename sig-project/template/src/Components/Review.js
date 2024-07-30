@@ -5,45 +5,49 @@ import './Review.css';
 function ReviewPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState(''); // 입력 필드 상태
+  const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // URL 쿼리 파라미터에서 'query' 값을 가져옵니다
   const query = new URLSearchParams(location.search).get('query');
 
   // URL 쿼리 파라미터가 변경되면 해당 쿼리로 데이터를 fetch합니다
   useEffect(() => {
     if (query) {
-      setSearchTerm(query); // 쿼리 파라미터로부터 검색어 상태 설정
-      fetchData(query); // 초기 데이터 fetch
+      setSearchTerm(query);
+      fetchData(query);
     }
   }, [query]);
 
-  // 데이터를 fetch하는 함수
   const fetchData = (term) => {
     setLoading(true);
     setError(null);
+    setData(null);
 
     fetch(`http://localhost:8000/review?gamename=${encodeURIComponent(term)}`)
       .then(response => {
         if (!response.ok) {
+          setLoading(false);
           throw new Error('Network response was not ok');
         }
         return response.json();
       })
       .then(data => {
-        setData(data);
+        if(data)
+          setData(data);
+        else
+          alert('게임이 존재하지 않습니다.');
         setLoading(false);
       })
       .catch(error => {
         setError(error);
+        
+        alert('오류');
         setLoading(false);
       });
   };
 
-  // 검색 버튼 클릭 시 데이터 fetch
   const handleSearch = (event) => {
     event.preventDefault();
     if (searchTerm.trim()) {
@@ -52,20 +56,10 @@ function ReviewPage() {
     }
   };
 
-  // // 로딩 중일 때
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // // 에러가 발생했을 때
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
-
-  // // 데이터가 없을 때
-  // if (!data) {
-  //   return <div>존재하지 않는 게임입니다.</div>;
-  // }
+  // 로딩 중일 때
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
