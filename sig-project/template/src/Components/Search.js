@@ -8,7 +8,7 @@ function SearchPage() {
 
   const handleSearch = () => {
     if (query.trim()) {
-      navigate(`/results?query=${query}`);
+      navigate(`/review?query=${encodeURIComponent(query)}`);
     }
   };
 
