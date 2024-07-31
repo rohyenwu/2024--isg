@@ -1,5 +1,6 @@
 import torch
 import fasttext
+import nltk
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 
 def load_FestText():
@@ -17,48 +18,47 @@ def load_Pegasus():
     tokenizer = PegasusTokenizer.from_pretrained(model_save_path)
     return model, tokenizer
 
-# FastText 모델을 사용하여 유사한 단어를 찾는 함수
 def find_similar_keywords(model, keyword, top_n):
     similar_words = []
-    extracted_words = [keyword]
+    similar = model.get_nearest_neighbors(keyword, k=top_n + 1000)  # 추가로 1000개 더 가져와서 필터링
 
-    # 유사 단어 추출
-    similar = model.get_nearest_neighbors(keyword)
-    for sim_word, _ in similar:
-        sim_word = str(sim_word) #문자열로 변환하도록 수정
-        if not contains_substring(extracted_words, sim_word):
-            similar_words.append(sim_word)
-            extracted_words.append(sim_word)
-            if len(similar_words) >= top_n:
-                break
+    similar_words = [(word, score) for score, word in similar]  # (단어, 유사도) 순으로 정렬
 
     return similar_words
 
+def contains_substring(keywords, candidate):
+    return any(keyword.lower() in candidate.lower() for keyword in keywords)
+
 # 카테고리별로 유사한 키워드를 추출하는 함수
 def extract_similar_keywords_by_category(model, top_n):
-    categories = ['graphic', 'sound', 'story','creativity']
+    categories = {
+        'graphic': ['graphic'],
+        'sound': ['sound'],
+        'story': ['story'],
+        'creativity': ['creativity']
+    }
+
     similar_keywords_by_category = {}
 
-    for category in categories:
+    for category, exclude_words in categories.items():
         similar_words = find_similar_keywords(model, category, top_n)
-        similar_keywords_by_category[category] = similar_words
+        filtered_words = [(word, score) for word, score in similar_words if not contains_substring(exclude_words, word)]
+        sorted_words = sorted(filtered_words, key=lambda x: x[1], reverse=True)
+        top_words = [word for word, _ in sorted_words[:top_n]]
+
+        similar_keywords_by_category[category] = top_words
 
     return similar_keywords_by_category
 
-# 특정 문자열이 다른 문자열의 부분 문자열인지 확인하는 함수
-def contains_substring(keywords, candidate):
-    return any(keyword in candidate for keyword in keywords)
 
 
-# #여기서 키워드가 포함된 문장 추출하고 키워드별 코퍼스 반환(review에서)
-# #sound, graphic, creative, story
 def find_sentence(text, word):
     nltk.download('punkt')
     word = word.lower()
     result_sentence = []
 
     # 문장을 마침표, 느낌표 같은 문장 구분기호를 기준으로 나눔
-    sentences = sent_tokenize(text)
+    sentences = nltk.sent_tokenize(text)
 
     for sentence in sentences:
         # 문장에 word가 있으면 result_sentence에 넣기
