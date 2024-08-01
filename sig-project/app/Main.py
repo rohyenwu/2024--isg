@@ -37,8 +37,11 @@ async def get_review(gamename: str = Query(..., alias="gamename")):
     if not reviews:
         return JSONResponse(content={"error": f"게임 '{gamename}'에 대한 리뷰 정보를 찾을 수 없습니다."}, status_code=404)
     else:
+        reviews_json = reviews.json()
+        print(f"Reviews JSON: {reviews_json}")
         return reviews
  
+
 
 
 
