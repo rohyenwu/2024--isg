@@ -4,94 +4,117 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    margin-top: 50px;
     padding: 20px;
+    background-color: #404040;
+    border-bottom: 1px solid #ccc;
+}
+
+.projectName{
+    font-size:40px;
+    color: #ffbd3f;
+}
+
+.keywords-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+    gap: 20px;
+}
+
+.keyword-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #ffbd3f;
+    cursor: pointer;
+    font-size: 25px;
+    width: 300px;
+    color: #000;
+    font-weight: bold;
+}
+
+.keyword-button:hover {
+    background-color: #000;
+    color: #fff;
 }
 
 .search-container {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* 수평 중앙 정렬 */
-    justify-content: center; /* 수직 중앙 정렬 */
-    width: 100%; /* 전체 폭 사용 */
-    box-sizing: border-box; /* padding과 border를 width에 포함시킵니다 */
-    margin-bottom: 100px;
-  }
+    flex-direction: row;
+    align-items: center;
+}
 
 .search-container input[type="text"] {
-    width: 400px;
-    padding: 15px;
-    margin-right: 10px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 400px;
 }
 
 .search-container input[type="submit"] {
-    padding: 15px 30px;
+    padding: 10px 20px;
     border: none;
-    background-color: #333;
-    color: #fff;
+    background-color: #ffbd3f;
+    color: #000;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    margin-left: 10px;
 }
 
-.game-name {
-    font-size: 36px;
-    font-weight: bold;
-    margin-top: 50px; /* 조정 필요 */
+.search-container input[type="submit"]:hover {
+    background-color: #555;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    flex: 1;
+    margin-top: 50px;
+    font-size: 50px;
 }
 
 .evaluation-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    gap: 20px;
-    margin-top: 20px;
-    max-width: 1000px;
-}
-
-.evaluation-container > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1 1 200px;
-    margin: 10px;
-    min-width: 200px;
-}
-
-.evaluation-container .review {
     width: 100%;
-    height: 200px;
-    padding: 15px;
+    width: 2000px;
+    height: 1000px;
+    gap: 20px;
+}
+
+.review {
+    flex: 1;
+    min-width: 0;
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 5px;
-    font-size: 16px;
-    resize: none;
-    overflow-y: auto;
-}
-
-.evaluation-container .score {
-    width: 70px;
-    height: 70px;
-    border: 2px solid #000;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 24px;
+    overflow-y: auto;
+    margin-top: 50px;
+}
+
+.review-positiveheader {
+    font-size: 40px;
+    color: limegreen;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.evaluation-container .new-row {
-    flex-basis: 100%;
-    height: 0;
-}
-
-label {
-    font-size: 20px;
+.review-negativeheader {
+    font-size: 40px;
+    color: crimson;
+    font-weight: bold;
     margin-bottom: 10px;
 }
