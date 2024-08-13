@@ -100,9 +100,10 @@ body {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 24px;
+    font-size: 20px;
     overflow-y: auto;
     margin-top: 50px;
+    line-height: 2.1;
 }
 
 .review-positiveheader {
