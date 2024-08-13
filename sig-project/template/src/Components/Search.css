@@ -7,6 +7,7 @@
     text-align: center; /* 텍스트 중앙 정렬 */
     background-color: #ffffff; /* 배경 색상 설정 */
     margin: 0; /* 여백 제거 */
+    font-size: 40px;
   }
   
   form {
