@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './Review.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faVolumeUp, faDesktop, faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function ReviewPage() {
   const location = useLocation();
@@ -38,13 +42,11 @@ function ReviewPage() {
       .then(data => {
         if (data) {
           setData(data);
-        } else {
         }
         setLoading(false);
       })
       .catch(error => {
         setError(error);
-        alert('오류');
         setLoading(false);
       });
   };
@@ -59,6 +61,32 @@ function ReviewPage() {
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
+
+  const getChartData = () => {
+    if (!data || !selectedCategory) {
+      return {
+        labels: ['긍정적 리뷰', '부정적 리뷰'],
+        datasets: [{
+          data: [50, 50],
+          backgroundColor: ['#4caf50', '#f44336'],
+        }],
+      };
+    }
+
+    const scoreKey = `${selectedCategory}Score`;
+    const score = data[scoreKey] || 0;
+    const positiveScore = Math.max(score, 0);
+    const negativeScore = Math.max(100 - positiveScore, 0);
+
+    return {
+      labels: ['긍정적 리뷰', '부정적 리뷰'],
+      datasets: [{
+        data: [positiveScore, negativeScore],
+        backgroundColor: ['#4caf50', '#f44336'],
+      }],
+    };
+  };
+  
 
   return (
     <div>
@@ -100,6 +128,9 @@ function ReviewPage() {
                 <div className='review-positiveheader'>긍정적리뷰<hr></hr></div>
                 {data?.graphic || '그래픽 긍정 리뷰'}
               </div>
+              <div className="chart-container">
+                <Doughnut data={getChartData()} />
+              </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
                 {data?.graphicNative || '그래픽 부정 리뷰'}
@@ -112,6 +143,9 @@ function ReviewPage() {
               <div className="review">
                 <div className='review-positiveheader'>긍정적리뷰<hr></hr></div>
                 {data?.sound || '사운드 긍정 리뷰'}
+              </div>
+              <div className="chart-container">
+                <Doughnut data={getChartData()} />
               </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
@@ -126,6 +160,9 @@ function ReviewPage() {
                 <div className='review-positiveheader'>긍정적리뷰<hr></hr></div>
                 {data?.story || '스토리 긍정 리뷰'}
               </div>
+              <div className="chart-container">
+                <Doughnut data={getChartData()} />
+              </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
                 {data?.storyNative || '스토리 부정 리뷰'}
@@ -138,6 +175,9 @@ function ReviewPage() {
               <div className="review">
                 <div className='review-positiveheader'>긍정적리뷰<hr></hr></div>
                 {data?.creativity || '창의성 긍정 리뷰'}
+              </div>
+              <div className="chart-container">
+                <Doughnut data={getChartData()} />
               </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
