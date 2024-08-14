@@ -23,6 +23,10 @@ class ReviewData(BaseModel):
     soundNative: str
     storyNative: str
     creativityNative: str
+    graphicScore:str
+    soundScore:str
+    storyScore:str
+    creativityScore:str
     
 def get_summary_reviews(game_name: str) -> Optional[ReviewData]:
     mydb=get_db_connection()
@@ -60,7 +64,11 @@ def get_summary_reviews(game_name: str) -> Optional[ReviewData]:
             "graphicNative": "",
             "soundNative": "",
             "storyNative": "",
-            "creativityNative": ""
+            "creativityNative": "",
+            "graphicScore":"",
+            "soundScore":"",
+            "storyScore":"",
+            "creativityScore":""
         }
 
         for review in summary_reviews:
@@ -86,7 +94,26 @@ def get_summary_reviews(game_name: str) -> Optional[ReviewData]:
                     review_data["storyNative"] = summary_review
                 elif category_type == "creativity":
                     review_data["creativityNative"] = summary_review
-
+                    
+        score_query="""
+        SELECT s.score,c.category_type
+        FROM score s
+        JOIN category c ON s.category_id=c.category_id
+        WHERE s.game_id=%s
+        """
+        cursor.execute(score_query, (game_id,))
+        scores = cursor.fetchall()
+        for score in scores:
+            category_type = score["category_type"]
+            score_value = score["score"]
+            if category_type == "graphic":
+                review_data["graphicScore"] = score_value
+            elif category_type == "sound":
+                review_data["soundScore"] = score_value
+            elif category_type == "story":
+                review_data["storyScore"] = score_value
+            elif category_type == "creativity":
+                review_data["creativityScore"] = score_value
         cursor.close()
         mydb.close()
 

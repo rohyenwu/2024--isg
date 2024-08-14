@@ -188,3 +188,5 @@ def store_summaries_for_all_games_negative(summaries_by_category):
             polarity = 'negative'
             print(f"Storing summary for gameID {game_id}, category_id {category_id}: Polarity = {polarity}")
             store_summaries(game_id, category_id, summary, polarity)
+# def store_scores(graphicScore,soundScore,storyScore,creativityScore):
+    
