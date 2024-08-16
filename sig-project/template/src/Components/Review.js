@@ -97,13 +97,13 @@ function ReviewPage() {
       };
     }
 
-    const scoreKey = `${selectedCategory}Score`;
-    const score = data[scoreKey] || 0;
-    const positiveScore = score;
-    const negativeScore = 100 - positiveScore;
+    let scoreKey = `${selectedCategory}Score`;
+    console.log('받아오는 값: ', data[scoreKey]);
+    let score = data[scoreKey] || 0;
+    let positiveScore = score;
+    let negativeScore = 100 - positiveScore;
     
     console.log('현재 카테고리: ', scoreKey);
-    console.log('score: ', score);
     console.log('긍정 점수:', positiveScore);
     console.log('부정 점수:', negativeScore);
 
