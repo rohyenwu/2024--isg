@@ -104,7 +104,7 @@ function ReviewPage() {
     return {
       labels: ['긍정적 리뷰', '부정적 리뷰'],
       datasets: [{
-        data: [100, negativeScore],
+        data: [positiveScore, negativeScore],
         backgroundColor: ['#4caf50', '#f44336'],
       }],
     };
