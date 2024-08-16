@@ -23,10 +23,10 @@ class ReviewData(BaseModel):
     soundNative: str
     storyNative: str
     creativityNative: str
-    graphicScore:str
-    soundScore:str
-    storyScore:str
-    creativityScore:str
+    graphicScore:float
+    soundScore:float
+    storyScore:float
+    creativityScore:float
     
 def get_summary_reviews(game_name: str) -> Optional[ReviewData]:
     mydb=get_db_connection()
@@ -86,7 +86,7 @@ def get_summary_reviews(game_name: str) -> Optional[ReviewData]:
                 elif category_type == "creativity":
                     review_data["creativity"] = summary_review
             elif polarity == "negative":
-                if category_type == "graphics":
+                if category_type == "graphic":
                     review_data["graphicNative"] = summary_review
                 elif category_type == "sound":
                     review_data["soundNative"] = summary_review

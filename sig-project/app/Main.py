@@ -28,7 +28,7 @@ app.add_middleware(
 )
 
 # OpenAI API 키 설정
-OPENAI_API_KEY = os.getenv('API_KEY')  # 환경 변수에서 API 키를 가져옴
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')  # 환경 변수에서 API 키를 가져옴
 if not OPENAI_API_KEY:
     raise ValueError("API key not found in environment variables")
 
@@ -76,7 +76,15 @@ async def get_review(gamename: str = Query(..., alias="gamename"), target_langua
     #리뷰 번역
     translated_reviews = {}
     categories = ["graphic", "sound", "story", "creativity", "graphicNative", "soundNative", "storyNative", "creativityNative"]
-
+   
+    # 점수를 포함하여 응답 구성
+    translated_reviews.update({
+        "graphicScore": reviews_json.get("graphicScore", 0),
+        "soundScore": reviews_json.get("soundScore", 0),
+        "storyScore": reviews_json.get("storyScore", 0),
+        "creativityScore": reviews_json.get("creativityScore", 0),
+    })
+   
     for category in categories:
         original_review = reviews_json.get(category, "")
         if original_review:  # 비어 있는 리뷰는 번역하지 않음
@@ -94,5 +102,4 @@ async def get_review(gamename: str = Query(..., alias="gamename"), target_langua
 async def favicon():
     return Response(content=b'', media_type="image/x-icon")
 
-app.mount("/static", StaticFiles(directory="/Users/iusong/2024—isg-4/sig-project/template/build/static"), name="static")
-##sdafasdadfasdf
+# app.mount("/static", StaticFiles(directory="/Users/iusong/2024—isg-4/sig-project/template/build/static"), name="static")

@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector import Error
 
 def get_db_connection():
     try:
@@ -188,5 +189,59 @@ def store_summaries_for_all_games_negative(summaries_by_category):
             polarity = 'negative'
             print(f"Storing summary for gameID {game_id}, category_id {category_id}: Polarity = {polarity}")
             store_summaries(game_id, category_id, summary, polarity)
-# def store_scores(graphicScore,soundScore,storyScore,creativityScore):
+            
+def store_scores(gameID, graphicScore, soundScore, storyScore, creativityScore):
+    # 데이터베이스 연결
+    conn = get_db_connection()
+    if conn is None:
+        return
     
+    try:
+        cursor = conn.cursor()
+
+        # 카테고리와 ID 매핑
+        category_map = {
+            'graphic': 1,
+            'story': 2,
+            'sound': 3,
+            'creativity': 4
+        }
+
+        # 점수를 저장하는 쿼리
+        score_data = [
+            ('graphic', graphicScore),
+            ('story', storyScore),
+            ('sound', soundScore),
+            ('creativity', creativityScore)
+        ]
+
+        for category, score in score_data:
+            category_id = category_map[category]
+            cursor.execute(
+                'INSERT INTO score (gameID, categoryID, score) VALUES (%s, %s, %s)',
+                (gameID, category_id, score)
+            )
+
+        # 변경사항 저장
+        conn.commit()
+    except Error as e:
+        print(f"Error occurred: {e}")
+    finally:
+        # 리소스 정리
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+def get_review_by_game(gameID):
+    conn=get_db_connection()
+    cursor = conn.cursor()
+    query = '''
+            SELECT review
+            FROM reviews
+            WHERE game_id = %s
+        '''
+    cursor.execute(query,(gameID,))
+    reviews=cursor.fetchall()
+    review_texts = [review[0] for review in reviews]  # 리뷰 내용만 추출
+    combined_reviews = "".join(review_texts)  # 공백없이 리뷰를 결합
+
+    return combined_reviews
