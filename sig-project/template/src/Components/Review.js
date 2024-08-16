@@ -8,6 +8,29 @@ import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const centerTextPlugin = {
+  id: 'centerText',
+  beforeDraw(chart) {
+    const { ctx, chartArea, data } = chart;
+    if (data.datasets.length === 0) return;
+
+    const dataset = data.datasets[0];
+    const positiveScore = dataset.data[0] || 0;
+
+    ctx.save();
+    ctx.font = 'bold 30px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#000';
+
+    const centerX = (chartArea.left + chartArea.right) / 2;
+    const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+    ctx.fillText(`${positiveScore}`, centerX, centerY);
+    ctx.restore();
+  }
+};
+
 function ReviewPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -81,11 +104,26 @@ function ReviewPage() {
     return {
       labels: ['긍정적 리뷰', '부정적 리뷰'],
       datasets: [{
-        data: [positiveScore, negativeScore],
+        data: [100, negativeScore],
         backgroundColor: ['#4caf50', '#f44336'],
       }],
     };
   };
+
+  const getChartOptions = () => ({
+    plugins: {
+      datalabels: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => `${context.label}: ${context.raw}%`,
+        },
+      },
+      centerText: {}
+    },
+    responsive: true,
+  });
   
 
   return (
@@ -129,7 +167,7 @@ function ReviewPage() {
                 {data?.graphic || '그래픽 긍정 리뷰'}
               </div>
               <div className="chart-container">
-                <Doughnut data={getChartData()} />
+                <Doughnut data={getChartData()} options={getChartOptions()} plugins={[centerTextPlugin]} />
               </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
@@ -145,7 +183,7 @@ function ReviewPage() {
                 {data?.sound || '사운드 긍정 리뷰'}
               </div>
               <div className="chart-container">
-                <Doughnut data={getChartData()} />
+                <Doughnut data={getChartData()} options={getChartOptions()} plugins={[centerTextPlugin]} />
               </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
@@ -161,7 +199,7 @@ function ReviewPage() {
                 {data?.story || '스토리 긍정 리뷰'}
               </div>
               <div className="chart-container">
-                <Doughnut data={getChartData()} />
+                <Doughnut data={getChartData()} options={getChartOptions()} plugins={[centerTextPlugin]} />
               </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
@@ -177,7 +215,7 @@ function ReviewPage() {
                 {data?.creativity || '창의성 긍정 리뷰'}
               </div>
               <div className="chart-container">
-                <Doughnut data={getChartData()} />
+                <Doughnut data={getChartData()} options={getChartOptions()} plugins={[centerTextPlugin]} />
               </div>
               <div className="review">
                 <div className='review-negativeheader'>부정적리뷰<hr></hr></div>
