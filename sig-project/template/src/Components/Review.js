@@ -99,13 +99,11 @@ function ReviewPage() {
 
     const scoreKey = `${selectedCategory}Score`;
     const score = data[scoreKey] || 0;
-    console.log('기존 score: ', score);
-    score = Number(score);
     const positiveScore = score;
     const negativeScore = 100 - positiveScore;
     
     console.log('현재 카테고리: ', scoreKey);
-    console.log('바꾼 score: ', score);
+    console.log('score: ', score);
     console.log('긍정 점수:', positiveScore);
     console.log('부정 점수:', negativeScore);
 
