@@ -87,6 +87,7 @@ function ReviewPage() {
 
   const getChartData = () => {
     if (!data || !selectedCategory) {
+      console.log('데이터가 없거나 카테고리가 선택되지 않음');
       return {
         labels: ['긍정적 리뷰', '부정적 리뷰'],
         datasets: [{
@@ -98,8 +99,12 @@ function ReviewPage() {
 
     const scoreKey = `${selectedCategory}Score`;
     const score = data[scoreKey] || 0;
-    const positiveScore = Math.max(score, 0);
-    const negativeScore = Math.max(100 - positiveScore, 0);
+    const positiveScore = score;
+    const negativeScore = 100 - positiveScore;
+    
+    console.log('현재 카테고리: ', scoreKey);
+    console.log('긍정 점수:', positiveScore);
+    console.log('부정 점수:', negativeScore);
 
     return {
       labels: ['긍정적 리뷰', '부정적 리뷰'],
