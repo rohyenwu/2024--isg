@@ -63,9 +63,8 @@ function ReviewPage() {
         return response.json();
       })
       .then(data => {
-        if (data) {
-          setData(data);
-        }
+        console.log('받아온 데이터:', data);
+        setData(data);
         setLoading(false);
       })
       .catch(error => {
@@ -97,8 +96,8 @@ function ReviewPage() {
       };
     }
 
-    let scoreKey = `${selectedCategory}Score`;
-    console.log('받아오는 값: ', data[scoreKey]);
+    let scoreKey = `graphicScore`;
+    console.log('받아오는 점수: ', data[scoreKey]);
     let score = data[scoreKey] || 0;
     let positiveScore = score;
     let negativeScore = 100 - positiveScore;
