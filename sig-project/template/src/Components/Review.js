@@ -63,8 +63,9 @@ function ReviewPage() {
         return response.json();
       })
       .then(data => {
-        console.log('받아온 데이터:', data);
-        setData(data);
+        if (data) {
+          setData(data);
+        }
         setLoading(false);
       })
       .catch(error => {
@@ -96,15 +97,10 @@ function ReviewPage() {
       };
     }
 
-    let scoreKey = `graphicScore`;
-    console.log('받아오는 점수: ', data[scoreKey]);
+    let scoreKey = `${selectedCategory}Score`;
     let score = data[scoreKey] || 0;
     let positiveScore = score;
     let negativeScore = 100 - positiveScore;
-    
-    console.log('현재 카테고리: ', scoreKey);
-    console.log('긍정 점수:', positiveScore);
-    console.log('부정 점수:', negativeScore);
 
     return {
       labels: ['긍정적 리뷰', '부정적 리뷰'],
