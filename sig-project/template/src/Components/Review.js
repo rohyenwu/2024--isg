@@ -56,7 +56,6 @@ function ReviewPage() {
     fetch(`http://localhost:8000/review?gamename=${encodeURIComponent(term)}`, {
       headers: {
         'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': 'any',
       }
     })
       .then(response => {

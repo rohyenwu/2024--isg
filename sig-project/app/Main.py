@@ -16,7 +16,8 @@ load_dotenv()
 
 # CORS 설정
 origins = [
-    "http://localhost:3000",  # React 개발 서버
+    "http://localhost:3000",
+    "https://sigfordeploy.onrender.com"# React 개발 서버
 ]
 
 app.add_middleware(
