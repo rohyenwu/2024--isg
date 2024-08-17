@@ -53,8 +53,12 @@ function ReviewPage() {
     setLoading(true);
     setError(null);
     setData(null);
-
-    fetch(`http://localhost:8000/review?gamename=${encodeURIComponent(term)}`)
+    fetch(`http://localhost:8000/review?gamename=${encodeURIComponent(term)}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'any',
+      }
+    })
       .then(response => {
         if (!response.ok) {
           setLoading(false);
@@ -72,7 +76,8 @@ function ReviewPage() {
         setError(error);
         setLoading(false);
       });
-  };
+    
+    }
 
   const handleSearch = (event) => {
     event.preventDefault();

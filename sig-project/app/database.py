@@ -5,9 +5,9 @@ from typing import Optional
 def get_db_connection():
     try:
         connection = mysql.connector.connect(
-            host="localhost",
-            user="root",  # MySQL 사용자 이름
-            password="admin",  # MySQL 비밀번호
+            host="172.30.125.249",
+            user="sig2024",  # MySQL 사용자 이름
+            password="sig2024",  # MySQL 비밀번호
             database="sig"  # 사용할 데이터베이스 이름
         )
         return connection

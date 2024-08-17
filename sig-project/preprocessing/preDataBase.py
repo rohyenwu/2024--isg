@@ -231,6 +231,7 @@ def store_scores(gameID, graphicScore, soundScore, storyScore, creativityScore):
         if conn.is_connected():
             cursor.close()
             conn.close()
+            
 def get_review_by_game(gameID):
     conn=get_db_connection()
     cursor = conn.cursor()
