@@ -177,5 +177,10 @@ def summarize_by_Pegasus(sentences_by_category):
 
     print("Type of summaries_by_category:", type(summaries_by_category))
     return summaries_by_category
-# def calculate_score(): 아직 인자로 긍정,전체 개수인지 긍정 부정 개수인지 몰라서 남겨둠
+
+#점수 산출
+def calculate_score(positiveNum,negativeNum):
+    allNum=positiveNum+negativeNum
+    score=positiveNum/allNum
+    return score
     
